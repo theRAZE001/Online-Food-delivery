@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <p class="h1 text-center">Create Account</p>
+        <div class="col-lg-4 offset-lg-4">
+            <form action="/register" method='POST'>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="name">
+                    <p class="valid-name"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                    <p class="valid-email"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
+                        name="password">
+                    <p class="valid-pass"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="repassword" class="form-label">Re-enter password</label>
+                    <input type="password" class="form-control" id="repassword" aria-describedby="emailHelp"
+                        name="repassword">
+                    <p class="valid-repass"></p>
+                </div>
+                <button type="submit" class="btn btn-success" id="register">Sign-up</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const name = document.querySelector('#name');
+    const email = document.querySelector('#email');
+    const password = document.querySelector('#password');
+    const repassword = document.querySelector('#repassword');
+    const register = document.querySelector('#register');
+    register.addEventListener('click', (e) => {
+        if (name.value === '') {
+            e.preventDefault();
+            document.querySelector('.valid-name').innerHTML = "Name cannot be empty!!";
+            document.querySelector('.valid-name').classList.add("text-danger");
+        }
+        if (email.value === '') {
+            e.preventDefault();
+            document.querySelector('.valid-email').innerHTML = "Email cannot be empty";
+            document.querySelector('.valid-email').classList.add("text-danger");
+        }
+        if (password.value === '') {
+            e.preventDefault();
+            document.querySelector('.valid-pass').innerHTML = "password cannot be empty";
+            document.querySelector('.valid-pass').classList.add("text-danger");
+        }
+        if (repassword !== password) {
+            e.preventDefault();
+            document.querySelector('.valid-repass').innerHTML = "password do not match";
+            document.querySelector('.valid-repass').classList.add("text-danger");
+        }
+
+
+    })
+</script>
