@@ -5,11 +5,12 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'This field cannot be blank']
+        required: true
     },
     email: {
         type: String,
-        required: [true, 'This field cannot be blank']
+        required: true,
+        unique: [true, 'Email already exists']
     },
     password: {
         type: String,
@@ -17,6 +18,5 @@ const userSchema = new Schema({
     }
 
 })
-userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);
