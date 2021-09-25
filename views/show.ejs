@@ -1,0 +1,90 @@
+<% layout('/layout/boilerplate') %>
+    <h3>Order details</h3>
+    <div class="container p-3">
+        <div class="row">
+            <div class="col border rounded me-1">
+                <div class="mb-3">
+                    <span class="h5">Order Id</span>
+                    <span>
+                        <%= order._id %>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <span class="h5">Phone</span>
+                    <span>
+                        <%= order.phone %>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <span class="h5">Deliver to</span>
+                    <span>
+                        <%= order.address %>
+                    </span>
+                </div>
+                <p class="h5">Order Summary</p>
+                <ul>
+                    <% for(let item of Object.values(order.items.items)) {%>
+                        <li>
+                            <%= item.item.name %> - <%= item.qty %>
+                        </li>
+                        <% } %>
+                </ul>
+                <span class="h5 me-3">Total(₹)</span>
+                <span>
+                    <%= order.items.totalPrice %>
+                </span>
+            </div>
+            <div class="col border rounded">
+                <div>
+                    <h2>Order Status</h2>
+                </div>
+                <input id="hiddenInput" type="hidden" value="<%= JSON.stringify(order) %>">
+                <div class="row">
+                    <div class="col offset-2">
+                        <div id="orderStatus" data-step="Placed"
+                            class="<%= order.orderStatus==='order_placed'?'text-success':'text-secondary' %>">
+                            <img src="https://img.icons8.com/ios-glyphs/40/26e07f/purchase-order.png" />
+                            <span id="placed" class="h6 mx-4">Placed
+                            </span>
+                            <span id="placedTime">
+
+                            </span>
+                        </div>
+                        <div>
+                            <i class="las la-long-arrow-alt-down la-2x"></i>
+                        </div>
+                        <div id="orderStatus" data-step="Confirmed">
+                            <img
+                                src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/40/000000/external-order-online-shopping-itim2101-lineal-color-itim2101.png" />
+                            <span class="h6 mx-4">Confirmed
+                            </span>
+                        </div>
+                        <div>
+                            <i class="las la-long-arrow-alt-down la-2x"></i>
+                        </div>
+                        <div id="orderStatus" data-step="Processing">
+                            <img
+                                src="https://img.icons8.com/external-justicon-flat-justicon/40/000000/external-cooking-cooking-justicon-flat-justicon-3.png" />
+                            <span class="h6 mx-4">Processing</span>
+                        </div>
+                        <div>
+                            <i class="las la-long-arrow-alt-down la-2x"></i>
+                        </div>
+                        <div id="orderStatus" data-step="Out for Delivery">
+                            <img src="https://img.icons8.com/office/40/000000/truck.png" />
+                            <span class="h6 mx-4">Out For
+                                Delivery</span>
+                        </div>
+                        <div>
+                            <i class="las la-long-arrow-alt-down la-2x"></i>
+                        </div>
+                        <div id="orderStatus" class="pb-5" data-step="Delivered">
+                            <img src="https://img.icons8.com/office/40/000000/checked-truck.png" />
+                            <span class="h6 mx-4">Delivered</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

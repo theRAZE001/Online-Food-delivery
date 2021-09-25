@@ -1,0 +1,44 @@
+<% layout('/layout/boilerplate') %>
+    <h2>Edit Product</h2>
+    <form class="py-4" action="/admin/product/<%= item._id %>/update" method="POST" style="border: 1px solid #FD5717;">
+        <div class="row mb-3  justify-content-center">
+            <label for="name" class="h1 col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="name" id="name" value="<%= item.name %>" required>
+            </div>
+        </div>
+        <div class="row mb-3  justify-content-center">
+            <label for="image" class="h1 col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="image" id="image" value="<%= item.image %>" required>
+            </div>
+        </div>
+        <div class="row mb-3  justify-content-center">
+            <label for="description" class="h1 col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-4">
+                <textarea class="form-control" name="description" id="description"><%= item.description %></textarea>
+            </div>
+        </div>
+        <div class="row mb-3  justify-content-center">
+            <label for="price" class="h1 col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="price" id="price" value="<%= item.price %>" required>
+            </div>
+        </div>
+        <div class="row mb-3  justify-content-center">
+            <label for="description" class="h1 col-sm-2 col-form-label">Category</label>
+            <div class="col-sm-4">
+                <select class="form-select" name="category" required style="cursor: pointer;">
+                    <option value="pizza" <%=item.category==='pizza' ?'selected':'' %>>Pizza</option>
+                    <option value="burger" <%=item.category==='burger' ?'selected':'' %>>Burger</option>
+                    <option value="ice_cream" <%=item.category==='ice_cream' ?'selected':'' %>>Ice Cream</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center mt-5">
+            <div class="col-sm-1">
+                <button class="btn btn-success">Update</button>
+            </div>
+        </div>
+
+    </form>

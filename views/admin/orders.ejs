@@ -1,0 +1,69 @@
+<% layout('/layout/boilerplate') %>
+  <h1 class="text-center">Orders</h1>
+  <div>
+    <%- include('../../partials/adminSide') %>
+      <% if(orders.length===0){ %>
+        no pending orders
+        <% }else {%>
+          <div class="container">
+            <div class="row">
+              <div class="col-3 border">
+                <h5>Order</h5>
+              </div>
+              <div class="col-2 border">
+                <h5>User</h5>
+              </div>
+              <div class="col-2 border">
+                <h5>Total price</h5>
+              </div>
+              <div class="col-2 border">
+                <h5>Payment</h5>
+              </div>
+              <div class="col-3 border">
+                <h5>Status</h5>
+              </div>
+            </div>
+            <% for(let order of orders){ %>
+              <div class="row">
+                <div class="col-3 border">
+                  <h6>
+                    <%= order._id %>
+                  </h6>
+                  <ul>
+                    <% for (let item of Object.values(order.items.items)){ %>
+                      <li>
+                        <%= item.item.name %>
+                      </li>
+                      <% }%>
+                  </ul>
+                </div>
+                <div class="col-2 border">
+                  <%= order.userId.username %>
+                </div>
+                <div class="col-2 border">
+                  <%= order.items.totalPrice %>
+                </div>
+                <div class="col-2 border">
+                  <%=order.paymentStatus?"paid":"not paid" %>
+                </div>
+                <div class="col-3 border">
+                  <form class="d-flex m-2" action="update-status/<%= order._id %>" method="POST">
+                    <select class="form-select mt-2 me-1" name="status" style="cursor: pointer;">
+                      <option value="Confirmed" <%=(order.orderStatus=="Confirmed" )?'selected':'' %>>Confirmed
+                      </option>
+                      <option value="Processing" <%=(order.orderStatus=="Processing" ) ?'selected':'' %>
+                        >Processing
+                      </option>
+                      <option value="Out for Delivery" <%=(order.orderStatus=="Out for Delivery" ) ?'selected':'' %>>Out
+                        for
+                        delivery</option>
+                      <option value="Delivered" <%=(order.orderStatus=="Delivered" )?'selected':'' %>>Delivered</option>
+                    </select>
+                    <button class="btn btn-primary me-0">Update</button>
+                  </form>
+                </div>
+              </div>
+              <% } %>
+          </div>
+          <% } %>
+  </div>

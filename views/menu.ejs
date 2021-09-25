@@ -1,0 +1,59 @@
+<% layout('/layout/boilerplate') %>
+  <%if(success_msg!=''){%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%=success_msg%>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <%}%>
+      <%if(error!=''){%>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%=error%>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <%}%>
+          <form action="/menu" method="GET" class="d-flex justify-content-end mb-3">
+            <input type="text" name="search" id="search" class="w-25 mx-1 rounded-3" placeholder="Search">
+            <input class="btn btn-success" type="submit" value="Search">
+          </form>
+          <% if(noResult!==null) {%>
+            <h3>
+              <%= noResult %>
+            </h3>
+            <% }%>
+              <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+                <% for (let prod of product){ %>
+                  <div class="col">
+                    <div class="card h-100">
+                      <img src="<%= prod.image %>" height="175px" class="card-img-top" alt="food">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <%=prod.name%>
+                        </h5>
+                        <p class="card-text">
+                          <%=prod.description%>
+                        </p>
+
+                      </div>
+                      <div class="d-flex align-items-end justify-content-between p-2">
+                        <p class="h4 mt-1">
+                          ₹<%= prod.price %>
+                        </p>
+                        <button data-product="<%= JSON.stringify(prod)%>" class="btn btn-success add-to-cart">+
+                          Add</button>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+              </div>
+              <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div class="toast align-items-center bg-success text-white" id="liveToast" role="alert"
+                  aria-live="assertive" aria-atomic="true">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                      aria-label="Close"></button>
+                  </div>
+                </div>
+              </div>

@@ -1,0 +1,115 @@
+<% layout('/layout/boilerplate') %>
+  <%if(success_msg!=''){%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%=success_msg%>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+      <div id="liveAlertPlaceholder"></div>
+      <div class="container border rounded text-center" style="height: 80vh;">
+        <h2 class="p-3 mb-3"
+          style=" color: rgb(253, 87, 23);border-bottom: 6px solid; border-image: linear-gradient(to right, rgb(253, 87, 23),#F89D79)1;">
+          Profile
+        </h2>
+        <% if(currentUser) {%>
+          <div class="row justify-content-center align-items-center mt-5 mx-3 mb-3">
+            <div class="col-2">
+              <h6 style=" color: rgb(253, 87, 23); border-image: linear-gradient(to right, rgb(253, 87, 23),#F89D79)1;">
+                Name</h6>
+            </div>
+            <div class="col-4">
+              <input type="text" id="username" class="form-control" value="<%=currentUser.username%>">
+            </div>
+            <div class="col-1"><button class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"><i class="las la-edit"></i></button></div>
+          </div>
+          <div class="row justify-content-center align-items-center mt-3 mx-3 mb-5">
+            <div class="col-2">
+              <h6 style=" color: rgb(253, 87, 23); border-image: linear-gradient(to right, rgb(253, 87, 23),#F89D79)1;">
+                Email</h6>
+            </div>
+            <div class="col-4">
+              <input type="text" class="form-control" value="<%=currentUser.email%>" disabled>
+            </div>
+            <div class="col-1">
+              <% if(currentUser.isVerified) {%>
+                <i class="fas fa-check text-success"></i>
+            </div>
+            <div class="row justify-content-center offset-md-1">
+              <div class="col-5"><small class="text-success">Account Verified!</small>
+              </div>
+            </div>
+            <% }else {%>
+              <img src="https://img.icons8.com/ios-glyphs/30/fa314a/id-not-verified.png" />
+          </div>
+          <div class="row justify-content-center offset-md-1">
+            <div class="col-5"><small class="text-danger">Email Id not Verified! </small><small><a
+                  href="/users/resend-verification-mail"> Click here</a></small><small> to get
+                verification link</small></div>
+          </div>
+          <% } %>
+
+
+
+      </div>
+
+      <% if(orders.length>0) {%>
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <h6 style=" color: rgb(253, 87, 23); border-image: linear-gradient(to right, rgb(253, 87, 23),#F89D79)1;">
+              Recent Orders</h6>
+          </div>
+          <div class="col-5">
+            <div class="row text-start">
+              <%for(let order of orders){%>
+
+                <div class="col" style="color: rgb(253, 87, 23);">
+                  <%= order._id %>
+                </div>
+                <div class="col">
+                  <%= order.orderStatus %>
+                </div>
+                <% } %>
+            </div>
+
+          </div>
+        </div>
+        <% } %>
+          <% } %>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Change name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <span class="h6">Are you sure you want to change name?</span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                      aria-label="Close">Cancel</button>
+                    <button type="button" id="edit" data-id="<%= currentUser._id %>" class="btn btn-success"
+                      data-bs-dismiss="modal" aria-label="Close">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <script>
+              const edit = document.querySelector('#edit');
+              const username = document.querySelector('#username');
+              var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+              edit.addEventListener('click', () => {
+                let id = edit.dataset.id;
+                axios.post('/users/update-username', { id: id, username: username.value }).then(res => {
+                  let wrapper = document.createElement('div')
+                  wrapper.innerHTML = '<div class="alert alert-' + 'success' + ' alert-dismissible" role="alert">' + res.data.msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                  alertPlaceholder.append(wrapper)
+
+                })
+
+              })
+            </script>

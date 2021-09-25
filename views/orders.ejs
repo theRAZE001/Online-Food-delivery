@@ -1,0 +1,57 @@
+<% layout('/layout/boilerplate') %>
+  <div class="container mb-5">
+    <% if(success!="" ){ %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%=success%>.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+        <% if (allOrders.length===0){ %>
+          <div class="d-flex flex-column align-items-center border p-3">
+            <h3>No orders to show</h3>
+            <img src="/static/images/box.png" class="h-25 w-25 my-5" alt="empty box">
+            <a href="/menu">Go back and start ordering</a>
+          </div>
+          <% }else{%>
+            <div class="border-bottom mb-5">
+              <h5>Your orders</h5>
+            </div>
+            <div class="container">
+              <div class="row border-bottom border-dark mb-3">
+                <div class="col">
+                  <h5>Order Id</h5>
+                </div>
+                <div class="col">
+                  <h5>Address</h5>
+                </div>
+                <div class="col">
+                  <h5>Placed At</h5>
+                </div>
+                <div class="col">
+                  <h5>Status</h5>
+                </div>
+              </div>
+
+              <% for (let order of allOrders){ %>
+
+                <div class="row mb-1">
+                  <div class="col border-bottom">
+                    <a class="text-decoration-none" href="/users/orders/show/<%= order._id %>" style="color:#FD5717;">
+                      <%=order._id %>
+                    </a>
+                  </div>
+                  <div class="col border-bottom">
+                    <%= order.address %>
+                  </div>
+                  <div class="col border-bottom">
+                    <%= moment(order.createdAt).format('MMM Do, HH:MM a') %>
+                  </div>
+                  <div class="col border-bottom">
+                    <span>
+                      <%= order.orderStatus %>
+                    </span>
+                  </div>
+                </div>
+                <% }} %>
+            </div>
+  </div>
