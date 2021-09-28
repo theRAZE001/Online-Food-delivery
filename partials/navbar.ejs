@@ -7,22 +7,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/menu">Menu</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            categories
-          </a>
-          <ul class="dropdown-menu bg-light" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="/menu">Show All</a></li>
-            <li><a class="dropdown-item" href="/pizza">Pizza</a></li>
-            <li><a class="dropdown-item" href="/burger">Burger</a></li>
-          </ul>
-        </li>
       </ul>
-      <div class="navbar-nav" style="margin-right: 60px;">
+      <div class="navbar-nav float-left" style="margin-right: 60px;">
+        <a class="nav-link main-nav-link me-3" aria-current="page" href="/menu">Menu</a>
         <% if(!currentUser){ %>
           <a href="/users/login" class="nav-link">Login</a>
           <a href="/users/register" class="nav-link">Register</a>
@@ -37,17 +24,19 @@
                 <i class="far fa-user-circle fa-lg"></i>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: 0;">
-                <li><a class="dropdown-item" href="/users/profile">Profile</a></li>
-                <li><a class="dropdown-item" href="/users/orders">Your orders</a></li>
+                <li><a class="dropdown-item main-nav-link" href="/users/profile">Profile</a></li>
+                <li><a class="dropdown-item main-nav-link" href="/users/orders">Your orders</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="/users/logout">Logout</a></li>
+                <li><a class="dropdown-item main-nav-link" href="/users/logout">Logout</a></li>
               </ul>
             </li>
-            <a href="/cart" class="nav-link mx-2"><span id="cartCounter">
+            <a href="/cart" class="nav-link mx-2 main-nav-link"><i class="fas fa-shopping-cart fa-lg">
+              </i>
+              <span id="cartCounter">
                 <%=session.cart && session.cart.totalQty>0 ?session.cart.totalQty:'' %>
-              </span><i class="fas fa-shopping-cart fa-lg"></i>
+              </span>
             </a>
 
             <% } %>

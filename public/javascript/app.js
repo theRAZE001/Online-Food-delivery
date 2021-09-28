@@ -27,6 +27,16 @@ const itemCounter = document.querySelectorAll("#itemcounter");
 })()
 
 
+const mainNavLinks = document.querySelectorAll(".main-nav-link")
+console.log(mainNavLinks.length)
+for (let link of mainNavLinks) {
+    if (window.location.href === link.href) {
+        console.log(link.href)
+        console.log(window.location.href)
+        link.classList.add('active')
+    }
+}
+
 for (let but of btn) {
     but.addEventListener('click', (e) => {
         let product = JSON.parse(but.dataset.product);

@@ -15,21 +15,18 @@ router.get('/menu', async (req, res) => {
     if (query) {
         const product = await Product.find({ name: { $regex: query, $options: '$i' } })
         if (product.length > 0) {
-            res.render('menu', { product, noResult: null })
+            res.render('menu', { product, noResult: null, category: 'Select Category' })
         } else {
-            res.render('menu', { product: [], noResult: `No matching items found for ${query}` })
+            res.render('menu', { product: [], noResult: `No matching items found for ${query}`, category: 'Select Category' })
         }
     }
     const product = await Product.find({}, null, { sort: { 'updatedAt': -1 } });
-    res.render('menu', { product, noResult: null });
+    res.render('menu', { product, noResult: null, category: 'Select Category' });
 })
-router.get('/pizza', async (req, res) => {
-    const product = await Product.find({ category: 'pizza' }, null, { sort: { 'updatedAt': -1 } });
-    res.render('menu', { product, noResult: null });
-})
-router.get('/burger', async (req, res) => {
-    const product = await Product.find({ category: 'burger' }, null, { sort: { 'updatedAt': -1 } });
-    res.render('menu', { product, noResult: null });
+router.get('/menu/:item', async (req, res) => {
+    const { item } = req.params
+    const product = await Product.find({ category: item }, null, { sort: { 'updatedAt': -1 } });
+    res.render('menu', { product, noResult: null, category: item });
 })
 
 router.post('/add-to-cart', (req, res) => {

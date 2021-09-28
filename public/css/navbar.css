@@ -1,0 +1,6 @@
+.main-nav-link:hover{
+    color: white;
+}
+.main-nav-link:active{
+    background-color: rgb(253, 71, 0);
+}
